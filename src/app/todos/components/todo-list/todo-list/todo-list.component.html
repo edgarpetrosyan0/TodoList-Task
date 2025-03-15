@@ -1,0 +1,51 @@
+<div
+  class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans"
+>
+  <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+    <div class="mb-4">
+      <h1 class="text-grey-darkest">Todo List</h1>
+      <div class="flex mt-4">
+        <input
+          [ngModel]="newTask()"
+          (ngModelChange)="newTask.set($event)"
+          class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
+          placeholder="Add Todo"
+        />
+
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          (click)="addTask()"
+        >
+          Add
+        </button>
+      </div>
+      <div class="flex mt-4">
+        <input
+          [(ngModel)]="search"
+          (input)="searchTask()"
+          class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
+          placeholder="Search tasks"
+        />
+        <select (change)="changeSortOrder($event)">
+          <option value="name">Sort by Name</option>
+        </select>
+      </div>
+    </div>
+
+    @for (item of todos(); track item.id) {
+    <div>
+      <div class="flex mb-4 items-center">
+        <p class="w-full text-grey-darkest" [class.completed]="item.completed">
+          {{ item.title }}
+        </p>
+        <button
+          class="bg-red-500 hover:bg-red-700 text-white py-2 px-2 rounded-full"
+          (click)="removeTask(item.id)"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</div>
